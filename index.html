@@ -1,568 +1,466 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alekhya Viswanath | Portfolio</title>
-  <meta name="description" content="Professional portfolio for Alekhya Viswanath" />
-  <style>
-    :root {
-      --bg: #0b1020;
-      --bg-2: #111936;
-      --card: rgba(255,255,255,0.08);
-      --card-border: rgba(255,255,255,0.12);
-      --text: #f5f7ff;
-      --muted: rgba(245,247,255,0.72);
-      --accent: #7c8cff;
-      --accent-2: #56d8ff;
-      --shadow: 0 20px 60px rgba(0,0,0,0.35);
-      --radius: 24px;
-      --max: 1120px;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alekhya Viswanath</title>
+<meta name="description" content="Alekhya (Alex) Viswanath: from software engineering to project and operations, drawn as a transit map.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;700;800&family=Overpass+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAFAF7; --ink:#1C1F26; --muted:#5E6470; --rule:#DCDED8; --station:#FFFFFF;
+  --eng:#1F5FBF; --field:#2F8F4E; --ops:#D98C00; --strat:#8B3A8F;
+  --board:#1B1E24; --flap:#262A31; --flap-ink:#F5C542;
+  --max:1120px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#13171F; --ink:#E8E9EC; --muted:#A0A6B2; --rule:#2C323D; --station:#13171F;
+    --eng:#6C9BEF; --field:#5CC27F; --ops:#F2B33D; --strat:#C77FCB;
+    --board:#0D1016; --flap:#1A1E26;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#13171F; --ink:#E8E9EC; --muted:#A0A6B2; --rule:#2C323D; --station:#13171F;
+  --eng:#6C9BEF; --field:#5CC27F; --ops:#F2B33D; --strat:#C77FCB;
+  --board:#0D1016; --flap:#1A1E26;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Overpass",system-ui,sans-serif;font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--eng);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}body{font-size:17px}}
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(124,140,255,0.25), transparent 34%),
-        radial-gradient(circle at top right, rgba(86,216,255,0.18), transparent 28%),
-        linear-gradient(180deg, #070b16 0%, var(--bg) 45%, #070b16 100%);
-      min-height: 100vh;
-    }
+/* ---------- hero ---------- */
+.hero{padding:64px 0 24px;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:end}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:32px;padding-top:40px}}
+.hero h1{font-weight:800;font-size:clamp(2.6rem,6vw,4.4rem);line-height:.98;letter-spacing:-.025em;margin:0 0 20px}
+.lede{font-size:1.15rem;max-width:34em;margin:0;color:var(--ink)}
+.lede + .lede{margin-top:12px;color:var(--muted);font-size:1rem}
 
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+/* departure board */
+.board{background:var(--board);border-radius:10px;padding:18px 18px 14px;color:var(--flap-ink);font-family:"Overpass Mono",ui-monospace,monospace;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.board-title{font-family:"Overpass",sans-serif;font-weight:700;color:#fff;font-size:.95rem;margin:0 0 12px;display:flex;justify-content:space-between;gap:12px}
+.board-title time{color:#9AA0AA;font-weight:500}
+.board-row{display:flex;gap:10px;margin-bottom:6px}
+.board-row.head .flaps span{background:transparent;color:#9AA0AA}
+.flaps{display:flex;gap:2px}
+.flaps span{display:inline-block;width:1.05em;text-align:center;background:var(--flap);border-radius:2px;font-weight:700;font-size:clamp(.62rem,1.35vw,.82rem);line-height:1.7;position:relative}
+.flaps span::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.55)}
+.board-row.head .flaps span::after{display:none}
+@media (max-width:560px){.col-from{display:none}}
 
-    .wrap {
-      width: min(100% - 32px, var(--max));
-      margin: 0 auto;
-    }
+/* ---------- map ---------- */
+.map-section{padding:24px 0 8px}
+.map-frame{overflow-x:auto;-webkit-overflow-scrolling:touch;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:8px 0}
+.map-frame svg{display:block;width:100%;min-width:880px;height:auto}
+.map-hint{display:none;font-size:.85rem;color:var(--muted);margin:8px 0 0}
+@media (max-width:900px){.map-hint{display:block}}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin:16px 0 0;padding:0;list-style:none;font-size:.95rem}
+.legend li{display:flex;align-items:center;gap:8px}
+.legend i{display:inline-block;width:28px;height:8px;border-radius:4px;background:var(--c)}
+svg .st-label{font-family:"Overpass",sans-serif;font-size:15px;font-weight:600;fill:var(--ink)}
+svg .st-year{font-weight:400;fill:var(--muted)}
+svg .ix-label{font-weight:800}
+svg a{cursor:pointer}
+svg a:focus{outline:none}
+svg a:focus-visible .st-dot,svg a:hover .st-dot{stroke-width:6}
+svg a:focus-visible .st-label,svg a:hover .st-label{text-decoration:underline}
 
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(14px);
-      background: rgba(7,11,22,0.72);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
+/* ---------- route ---------- */
+section h2{font-weight:800;font-size:clamp(1.7rem,3.4vw,2.3rem);letter-spacing:-.015em;line-height:1.1;margin:0 0 8px}
+.section-intro{color:var(--muted);margin:0 0 36px;max-width:36em}
+.route{padding:72px 0 24px}
+.stops{list-style:none;margin:0;padding:0}
+.stop{display:grid;grid-template-columns:56px 1fr;position:relative}
+.stop::before{content:"";position:absolute;left:22px;top:0;bottom:0;width:10px;background:var(--line)}
+.stop.first::before{top:14px}
+.stop .dot{position:absolute;left:15px;top:6px;width:24px;height:24px;border-radius:50%;background:var(--station);border:4px solid var(--line);z-index:1}
+.stop.ix .dot{left:11px;top:2px;width:32px;height:32px;border:5px solid var(--ink)}
+.stop-body{grid-column:2;padding:0 0 44px 12px;max-width:40em;border-radius:8px;transition:background-color .6s}
+.stop-body h3{font-size:1.45rem;font-weight:800;line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+.role{font-weight:700;margin:0}
+.where{color:var(--muted);margin:0 0 12px;font-size:.95rem}
+.stop-body p{margin:0 0 10px}
+.stop-body ul{margin:0;padding-left:1.1em}
+.stop-body li{margin-bottom:4px}
+.stop.is-here .stop-body{background:color-mix(in srgb,var(--line) 12%,transparent)}
+.pill{display:inline-block;font-size:.8rem;font-weight:700;color:#fff;background:var(--line);border-radius:999px;padding:1px 10px 0;margin-left:8px;vertical-align:2px}
+:root[data-theme="dark"] .pill{color:#13171F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pill{color:#13171F}}
 
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 18px 0;
-    }
+/* transfer sign */
+.transfer{display:grid;grid-template-columns:56px 1fr;position:relative}
+.transfer::before{content:"";position:absolute;left:22px;top:0;height:50%;width:10px;background:var(--from)}
+.transfer::after{content:"";position:absolute;left:22px;top:50%;bottom:0;width:10px;background:var(--to)}
+.sign{grid-column:2;margin:0 0 44px 12px;border:2px solid var(--ink);border-radius:10px;padding:16px 20px;max-width:40em;background:var(--paper)}
+.sign strong{display:flex;align-items:center;gap:10px;font-size:1.05rem;margin-bottom:6px}
+.sign strong i{display:inline-block;width:22px;height:8px;border-radius:4px}
+.sign p{margin:0;color:var(--muted)}
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: 0.2px;
-    }
+/* ---------- toolkit ---------- */
+.toolkit{padding:56px 0 24px}
+.kits{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+@media (max-width:900px){.kits{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.kits{grid-template-columns:1fr}}
+.kit{border-top:8px solid var(--c);padding-top:12px}
+.kit h3{margin:0 0 6px;font-size:1.1rem;font-weight:800}
+.kit ul{list-style:none;padding:0;margin:0;color:var(--muted);font-size:.98rem}
+.kit li{padding:3px 0}
 
-    .brand-badge {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      box-shadow: 0 12px 28px rgba(124,140,255,0.35);
-      display: grid;
-      place-items: center;
-      color: #08101d;
-      font-weight: 900;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .nav-links a:hover { color: var(--text); }
-
-    .hero {
-      padding: 78px 0 28px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 28px;
-      align-items: stretch;
-    }
-
-    .panel {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-    }
-
-    .hero-main {
-      padding: 34px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      color: var(--muted);
-      font-size: 0.92rem;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.5rem, 6vw, 5.2rem);
-      line-height: 0.96;
-      letter-spacing: -0.05em;
-    }
-
-    .accent {
-      background: linear-gradient(135deg, #ffffff, #8ee6ff 38%, #9aa8ff 76%, #ffffff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .lead {
-      margin: 18px 0 0;
-      font-size: 1.07rem;
-      line-height: 1.7;
-      color: var(--muted);
-      max-width: 62ch;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 26px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 14px 18px;
-      border-radius: 14px;
-      font-weight: 700;
-      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
-      border: 1px solid transparent;
-    }
-
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #08101d;
-      box-shadow: 0 16px 34px rgba(86,216,255,0.18);
-    }
-    .btn-secondary {
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-      border-color: rgba(255,255,255,0.12);
-    }
-
-    .hero-side {
-      display: grid;
-      gap: 16px;
-    }
-
-    .stat {
-      padding: 22px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .stat .num {
-      font-size: 2rem;
-      font-weight: 900;
-      letter-spacing: -0.04em;
-    }
-
-    .stat .label {
-      color: var(--muted);
-      line-height: 1.5;
-    }
-
-    .section {
-      padding: 18px 0 0;
-    }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: end;
-      margin: 34px 0 16px;
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-size: clamp(1.5rem, 3vw, 2.1rem);
-      letter-spacing: -0.03em;
-    }
-
-    .section-head p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 56ch;
-      line-height: 1.6;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .about, .project, .experience, .skill, .contact-card {
-      padding: 24px;
-    }
-
-    .about p, .project p, .experience p, .contact-card p {
-      color: var(--muted);
-      line-height: 1.7;
-      margin: 12px 0 0;
-    }
-
-    .chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .chip {
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.09);
-      color: var(--text);
-      font-size: 0.92rem;
-    }
-
-    .project {
-      position: relative;
-      overflow: hidden;
-      min-height: 260px;
-    }
-
-    .project::after {
-      content: "";
-      position: absolute;
-      inset: auto -40px -40px auto;
-      width: 160px;
-      height: 160px;
-      background: radial-gradient(circle, rgba(124,140,255,0.23), transparent 70%);
-      pointer-events: none;
-    }
-
-    .project-tag {
-      display: inline-flex;
-      padding: 7px 11px;
-      border-radius: 999px;
-      background: rgba(86,216,255,0.12);
-      color: #b8f2ff;
-      font-size: 0.85rem;
-      border: 1px solid rgba(86,216,255,0.18);
-    }
-
-    .project h3, .experience h3, .skill h3, .contact-card h3 {
-      margin: 14px 0 0;
-      font-size: 1.15rem;
-    }
-
-    .project ul, .experience ul {
-      margin: 14px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .timeline {
-      display: grid;
-      gap: 16px;
-    }
-
-    .experience {
-      display: grid;
-      gap: 10px;
-    }
-
-    .meta {
-      color: #c8d0ff;
-      font-size: 0.95rem;
-    }
-
-    .contact-wrap {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 18px;
-      margin-top: 8px;
-      padding-bottom: 64px;
-    }
-
-    .contact-card a {
-      color: #b8f2ff;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    footer {
-      padding: 22px 0 32px;
-      color: var(--muted);
-      text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .floating {
-      position: absolute;
-      inset: auto 28px 28px auto;
-      width: 170px;
-      aspect-ratio: 1;
-      border-radius: 28px;
-      background: linear-gradient(135deg, rgba(124,140,255,0.16), rgba(86,216,255,0.10));
-      border: 1px solid rgba(255,255,255,0.09);
-      filter: blur(0px);
-      transform: rotate(12deg);
-      opacity: 0.55;
-      pointer-events: none;
-    }
-
-    @media (max-width: 920px) {
-      .hero-grid, .grid-2, .grid-3, .contact-wrap { grid-template-columns: 1fr; }
-      .nav-inner { flex-direction: column; align-items: flex-start; }
-      .nav-links { justify-content: flex-start; }
-      .hero { padding-top: 42px; }
-      .hero-main { padding: 26px; }
-      .section-head { flex-direction: column; align-items: flex-start; }
-    }
-
-    @media (max-width: 560px) {
-      .wrap { width: min(100% - 20px, var(--max)); }
-      .hero-main, .about, .project, .experience, .skill, .contact-card { padding: 20px; }
-      h1 { font-size: clamp(2.2rem, 12vw, 3.4rem); }
-      .btn { width: 100%; }
-      .hero-actions { flex-direction: column; }
-    }
-  </style>
+/* ---------- terminus ---------- */
+.terminus{padding:72px 0 40px}
+.terminus-card{border:3px solid var(--ink);border-radius:14px;padding:32px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+@media (max-width:640px){.terminus-card{grid-template-columns:1fr;padding:24px}}
+.roundel{width:84px;height:84px;border-radius:50%;border:12px solid var(--ink);background:var(--station);position:relative}
+.roundel::after{content:"";position:absolute;inset:-12px;border-radius:50%;background:conic-gradient(var(--eng) 0 25%,var(--field) 0 50%,var(--ops) 0 75%,var(--strat) 0);-webkit-mask:radial-gradient(circle,transparent 30px,#000 31px);mask:radial-gradient(circle,transparent 30px,#000 31px)}
+.terminus h2{margin-bottom:10px}
+.terminus p{margin:0 0 18px;max-width:34em}
+.actions{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;text-decoration:none;font-weight:700;padding:11px 20px 9px;border-radius:999px;border:2px solid var(--ink)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn:hover{background:color-mix(in srgb,var(--ink) 10%,transparent)}
+.btn.primary:hover{background:color-mix(in srgb,var(--ink) 85%,var(--paper))}
+footer{padding:16px 0 48px;color:var(--muted);font-size:.85rem}
+</style>
 </head>
 <body>
-  <header class="nav">
-    <div class="wrap nav-inner">
-      <a class="brand" href="#top" aria-label="Alekhya Viswanath home">
-        <span class="brand-badge">A</span>
-        <span>Alekhya Viswanath</span>
-      </a>
-      <nav class="nav-links" aria-label="Primary navigation">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#experience">Experience</a>
-        <a href="#contact">Contact</a>
-      </nav>
+
+<header class="wrap hero">
+  <div>
+    <h1>Alekhya Viswanath</h1>
+    <p class="lede">Hi, I'm Alex. I started out writing code, moved into client integrations, then ran projects and operations, and then crossed from Chennai to Arizona to study global business. Each move added a line to the map.</p>
+    <p class="lede">This is the route so far, with the transfers marked. Tap any station to read about it.</p>
+  </div>
+  <div class="board" aria-label="Departures: project management, business analytics and business operations roles, from Tempe, Arizona. Now boarding.">
+    <p class="board-title"><span>Departures</span><time datetime="2026-10">Oct 2026</time></p>
+    <div id="board-rows" aria-hidden="true"></div>
+  </div>
+</header>
+
+<section class="wrap map-section" aria-label="Career map">
+  <div class="map-frame">
+    <svg id="map" viewBox="0 0 1200 400" role="img" aria-labelledby="map-title">
+      <title id="map-title">Transit map of Alex's career: an engineering line and a field projects line start at Amrita, engineering transfers to operations at Arcadia, operations transfers to strategy at Thunderbird, and both reach the next stop in Tempe.</title>
+    </svg>
+  </div>
+  <p class="map-hint">Swipe the map sideways to see the whole route.</p>
+  <ul class="legend">
+    <li style="--c:var(--eng)"><i></i>Engineering line</li>
+    <li style="--c:var(--field)"><i></i>Field projects line</li>
+    <li style="--c:var(--ops)"><i></i>Operations line</li>
+    <li style="--c:var(--strat)"><i></i>Strategy line</li>
+  </ul>
+</section>
+
+<main>
+<section class="wrap route" aria-labelledby="route-h">
+  <h2 id="route-h">The route, stop by stop</h2>
+  <p class="section-intro">In the order I traveled it. Interchange stations, drawn with a black ring, are where I changed lines.</p>
+
+  <ol class="stops">
+    <li class="stop first ix" id="amrita" style="--line:var(--eng)">
+      <span class="dot"></span>
+      <div class="stop-body">
+        <h3>Amrita Vishwa Vidyapeetham <span class="pill">Engineering</span></h3>
+        <p class="role">B.Tech, Computer Science &amp; Engineering</p>
+        <p class="where">India, graduated June 2022</p>
+        <p>First Class with Distinction. Two lines start here. The engineering line is the degree. The field line is what I did alongside it: most of my college years went into leading projects outside the classroom.</p>
+      </div>
+    </li>
+
+    <li class="stop" id="live-in-labs" style="--line:var(--field)">
+      <span class="dot"></span>
+      <div class="stop-body">
+        <h3>Live-in-Labs <span class="pill">Field</span></h3>
+        <p class="role">Project Lead</p>
+        <p class="where">Kanaka and Rajanga villages, Odisha. Jan 2020 to Jan 2022</p>
+        <p>Wild elephants were raiding farmland in two villages. I led a multidisciplinary student team designing a way to warn people without harming the herd: buried geophones pick up footfall, an Arduino filters the signal, and speakers and floodlights steer the elephants away. We took it to prototype with a sector-by-sector field test plan.</p>
+      </div>
+    </li>
+
+    <li class="stop" id="sign-language" style="--line:var(--field)">
+      <span class="dot"></span>
+      <div class="stop-body">
+        <h3>Sign language detection app <span class="pill">Field</span></h3>
+        <p class="role">Team Lead</p>
+        <p class="where">Funded through a Huts Lab humanitarian program</p>
+        <p>A deep learning model, for mobile and web, that lets hearing- and speech-impaired people communicate without extra hardware. The idea came out of my lab and I got it selected for funding. I led the 3-person team and owned the sponsor relationship, with weekly progress reports to our funder.</p>
+      </div>
+    </li>
+
+    <li class="stop" id="hyperverge" style="--line:var(--eng)">
+      <span class="dot"></span>
+      <div class="stop-body">
+        <h3>HyperVerge <span class="pill">Engineering</span></h3>
+        <p class="role">Integrations Engineer Intern</p>
+        <p class="where">Bengaluru. Jan to Jul 2022</p>
+        <p>My first job sat between code and customers. I ran technical onboarding for 10+ enterprise clients from kickoff call to go-live, cleared 40+ integration issues through ServiceNow and Jira, and wrote proof-of-concept API scripts that got new accounts connected faster.</p>
+      </div>
+    </li>
+
+    <li class="stop ix" id="arcadia" style="--line:var(--eng)">
+      <span class="dot"></span>
+      <div class="stop-body">
+        <h3>Arcadia <span class="pill">Engineering</span></h3>
+        <p class="role">Software Engineer</p>
+        <p class="where">Chennai. Aug 2022 to Mar 2023</p>
+        <p>I built regex and SQL extraction templates for high-volume utility bills, cutting manual effort by 56%. Two other pieces of work pointed to where I was heading: reworking the extraction workflow so it no longer depended on one person, and scripting productivity and Jira reports that showed the team where its workload actually sat.</p>
+      </div>
+    </li>
+
+    <li class="transfer" style="--from:var(--eng);--to:var(--ops)">
+      <div class="sign">
+        <strong><i style="background:var(--eng)"></i><i style="background:var(--ops)"></i>Change here for Operations</strong>
+        <p>Across HyperVerge and Arcadia, the work that mattered most kept landing around the code: client timelines, handoffs, who was waiting on whom. So I moved to the side of the table where that is the job.</p>
+      </div>
+    </li>
+
+    <li class="stop" id="olympian-tek" style="--line:var(--ops)">
+      <span class="dot"></span>
+      <div class="stop-body">
+        <h3>Olympian Tek <span class="pill">Operations</span></h3>
+        <p class="role">Project &amp; Operations Analyst</p>
+        <p class="where">Chennai. Mar 2023 to Jul 2024</p>
+        <ul>
+          <li>Coordinated a 20-person effort to move Physical Efficiency Tests onto an RFID and biometric system, owning requirements, vendors, timelines and user testing. It shipped on schedule and cut reporting errors by 82%.</li>
+          <li>Ran 2 to 3 sprints during RFID planning and hit 90% of deadlines.</li>
+          <li>Built Tableau dashboards that made project and KPI reporting 30% faster across teams.</li>
+          <li>Streamlined KYC, SIP and mutual fund data validation through CAMS, saving 42% in processing time.</li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="transfer" style="--from:var(--ops);--to:var(--strat)">
+      <div class="sign">
+        <strong><i style="background:var(--ops)"></i><i style="background:var(--strat)"></i>Change here for Strategy. Chennai to Tempe.</strong>
+        <p>Running a transformation project showed me how much of the outcome is decided before the first requirement is written: the market, the business case, the people who have to say yes. I went to Thunderbird to learn that part.</p>
+      </div>
+    </li>
+
+    <li class="stop ix" id="thunderbird" style="--line:var(--strat)">
+      <span class="dot"></span>
+      <div class="stop-body">
+        <h3>Thunderbird School of Global Management <span class="pill">Strategy</span></h3>
+        <p class="role">Master of Global Management (Global Business)</p>
+        <p class="where">Arizona State University, Phoenix. Graduated May 2026</p>
+        <p>GPA 3.67, STEM-designated. Coursework in digital transformation, organizational consulting, and marketing and data analytics. The next four stops are the projects I did here.</p>
+      </div>
+    </li>
+
+    <li class="stop" id="shelflife" style="--line:var(--strat)">
+      <span class="dot"></span>
+      <div class="stop-body">
+        <h3>ShelfLife.ai <span class="pill">Strategy</span></h3>
+        <p class="role">Project Lead</p>
+        <p class="where">Phoenix. Mar to May 2025</p>
+        <p>An AI-powered SaaS platform to cut food waste, for businesses and households in the US and India. I came up with the idea, led a 4-person team through the feasibility analysis (modeling 20 to 30% cost savings, checked against primary research in both markets) and built the pitch. It took 1st place out of 10 teams in our Global Entrepreneurship &amp; Sustainability class, and later won a hackathon too.</p>
+      </div>
+    </li>
+
+    <li class="stop" id="amazon-cx" style="--line:var(--strat)">
+      <span class="dot"></span>
+      <div class="stop-body">
+        <h3>Amazon customer experience study <span class="pill">Strategy</span></h3>
+        <p class="role">Global Strategic Services Marketing, team project</p>
+        <p class="where">Thunderbird</p>
+        <p>We applied critical incident and customer experience management models to Amazon using a survey of 161 people. My part was the front half: writing the survey questions, collecting responses, cleaning the data and documenting what we found.</p>
+      </div>
+    </li>
+
+    <li class="stop" id="c-neutral" style="--line:var(--strat)">
+      <span class="dot"></span>
+      <div class="stop-body">
+        <h3>C-Neutral <span class="pill">Strategy</span></h3>
+        <p class="role">Graduate Consultant</p>
+        <p class="where">Bogotá, Colombia. Oct to Dec 2025</p>
+        <ul>
+          <li>Delivered a market entry analysis of Mexico's carbon market, sizing a $25M+ opportunity.</li>
+          <li>Scoped and designed an emissions tracking MVP, estimated to cut clients' manual reporting by 40%.</li>
+          <li>Took the prototype through 2 rounds of feedback, from requirements to final client handoff.</li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="stop" id="barrow" style="--line:var(--strat)">
+      <span class="dot"></span>
+      <div class="stop-body">
+        <h3>Barrow Neurological Institute <span class="pill">Strategy</span></h3>
+        <p class="role">Corporate Partners capstone</p>
+        <p class="where">Thunderbird, final semester, 2026</p>
+        <p>A 7-person team researching 8 countries for Barrow. I covered Kenya and Zambia and was the team's production and documentation lead, turning everyone's research into one finished deliverable.</p>
+      </div>
+    </li>
+
+    <li class="stop" id="certificates" style="--line:var(--ops)">
+      <span class="dot"></span>
+      <div class="stop-body">
+        <h3>Back on the operations line <span class="pill">Operations</span></h3>
+        <p class="role">Certificates</p>
+        <p class="where">Aug to Sep 2026</p>
+        <ul>
+          <li>PMI: Fundamentals of Predictive Project Management</li>
+          <li>BCG Digital Transformation Job Simulation (Forage)</li>
+          <li>Google Foundations: Data, Data, Everywhere (Coursera)</li>
+        </ul>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section class="wrap toolkit" aria-labelledby="kit-h">
+  <h2 id="kit-h">What each line left me with</h2>
+  <p class="section-intro">None of these lines closed when I changed trains. I still use all four.</p>
+  <div class="kits">
+    <div class="kit" style="--c:var(--eng)">
+      <h3>Engineering</h3>
+      <ul><li>SQL and Python</li><li>Regex-based data extraction</li><li>API integrations</li><li>Jira and ServiceNow</li></ul>
     </div>
-  </header>
+    <div class="kit" style="--c:var(--field)">
+      <h3>Field projects</h3>
+      <ul><li>Leading cross-discipline teams</li><li>Sponsor and funder reporting</li><li>Prototyping under real constraints</li></ul>
+    </div>
+    <div class="kit" style="--c:var(--ops)">
+      <h3>Operations</h3>
+      <ul><li>Requirements and user stories</li><li>Vendor coordination</li><li>Agile/Scrum and UAT</li><li>Tableau dashboards and KPI design</li></ul>
+    </div>
+    <div class="kit" style="--c:var(--strat)">
+      <h3>Strategy</h3>
+      <ul><li>Market sizing and entry analysis</li><li>Feasibility analysis</li><li>Survey design and SPSS</li><li>Stakeholder management</li></ul>
+    </div>
+  </div>
+</section>
 
-  <main id="top" class="wrap">
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="panel hero-main">
-          <div class="eyebrow">Portfolio · Resume · Projects</div>
-          <h1><span class="accent">Building</span> work that looks sharp, feels clear, and proves impact.</h1>
-          <p class="lead">
-            Hi, I am Alekhya Viswanath — an aspiring HR and business professional with a growing interest in data, strategy, and people-focused problem solving. This portfolio highlights projects, experience, and the skills I bring to the hiring table.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#projects">See Projects</a>
-            <a class="btn btn-secondary" href="#contact">Contact Me</a>
-          </div>
-          <div class="floating" aria-hidden="true"></div>
-        </div>
-
-        <div class="hero-side">
-          <div class="panel stat">
-            <div class="num">3+</div>
-            <div class="label">Featured projects and case studies you can showcase and expand over time.</div>
-          </div>
-          <div class="panel stat">
-            <div class="num">1</div>
-            <div class="label">Clean portfolio link ready to place on LinkedIn and your resume.</div>
-          </div>
-          <div class="panel stat">
-            <div class="num">24/7</div>
-            <div class="label">Always live on GitHub Pages, with updates pushed through commits.</div>
-          </div>
-        </div>
+<section class="wrap terminus" id="next-stop" aria-labelledby="next-h">
+  <div class="terminus-card">
+    <div class="roundel" aria-hidden="true"></div>
+    <div>
+      <h2 id="next-h">Next stop: Tempe, Arizona</h2>
+      <p>I'm looking for project management, business analytics and business operations roles. If your team needs someone who can read the code, run the plan and make the business case, I'd like to talk.</p>
+      <div class="actions">
+        <a class="btn primary" href="mailto:alekhya.viswanath@gmail.com">Email me</a>
+        <a class="btn" href="https://linkedin.com/in/alekhyaviswanath" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="resume.pdf" download>Download resume</a>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+</main>
 
-    <section id="about" class="section">
-      <div class="section-head">
-        <h2>About Me</h2>
-        <p>A short, confident summary that tells recruiters who you are, what you care about, and the kind of roles you are aiming for.</p>
-      </div>
-      <div class="panel about">
-        <p>
-          I am passionate about human resources, organizational growth, and data-informed decision making. I enjoy turning information into simple, useful insights and contributing to projects that improve people, process, or performance.
-        </p>
-        <div class="chips">
-          <span class="chip">HR Strategy</span>
-          <span class="chip">Data Analysis</span>
-          <span class="chip">Communication</span>
-          <span class="chip">Project Coordination</span>
-          <span class="chip">Excel / Power BI</span>
-        </div>
-      </div>
-    </section>
+<footer class="wrap">Map not to scale. Last updated October 2026.</footer>
 
-    <section id="skills" class="section">
-      <div class="section-head">
-        <h2>Skills</h2>
-        <p>Use these cards for tools, strengths, and core abilities. Keep them focused and relevant to the jobs you want.</p>
-      </div>
-      <div class="grid-3">
-        <div class="panel skill"><h3>Technical</h3><p>Excel, Power BI, basic research, reporting, presentation design, and document organization.</p></div>
-        <div class="panel skill"><h3>Professional</h3><p>Communication, teamwork, adaptability, attention to detail, and stakeholder support.</p></div>
-        <div class="panel skill"><h3>Working Style</h3><p>Structured thinking, fast learning, clear writing, and polished delivery.</p></div>
-      </div>
-    </section>
+<script>
+(function(){
+  /* ---------- map ---------- */
+  var NS = "http://www.w3.org/2000/svg";
+  var svg = document.getElementById("map");
+  function el(tag, attrs, parent){
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    (parent || svg).appendChild(n);
+    return n;
+  }
+  var Y = 240, UP = 160;
+  var lines = [
+    {c:"var(--field)", d:"M80 "+Y+" L160 "+UP+" H400"},
+    {c:"var(--eng)",   d:"M80 "+Y+" H440"},
+    {c:"var(--ops)",   d:"M440 "+Y+" H700"},
+    {c:"var(--ops)",   d:"M700 "+Y+" H990", dash:true},
+    {c:"var(--ops)",   d:"M990 "+Y+" H1130"},
+    {c:"var(--strat)", d:"M700 "+Y+" L780 "+UP+" H1060 L1130 "+Y}
+  ];
+  lines.forEach(function(l){
+    el("path",{d:l.d, fill:"none", stroke:l.c, "stroke-width":12, "stroke-linecap":"round", "stroke-linejoin":"round", "stroke-dasharray": l.dash ? "2 18" : "none"});
+  });
+  // end bar for the field line
+  el("path",{d:"M400 "+(UP-14)+" V"+(UP+14), stroke:"var(--field)", "stroke-width":8, "stroke-linecap":"round"});
 
-    <section id="projects" class="section">
-      <div class="section-head">
-        <h2>Projects</h2>
-        <p>This is the strongest part of your portfolio. Show the problem, your approach, tools, and the result in a clean card format.</p>
-      </div>
-      <div class="grid-2">
-        <article class="panel project">
-          <span class="project-tag">Strategy · Research</span>
-          <h3>C-Neutral</h3>
-          <p>A market-entry strategy project supporting a B-Corp expansion into Mexico.</p>
-          <ul>
-            <li>Defined the business challenge and target market.</li>
-            <li>Researched customer, competitor, and market factors.</li>
-            <li>Built recommendations for entry approach and positioning.</li>
-          </ul>
-        </article>
+  var stations = [
+    {id:"amrita",       x:80,   y:Y,  c:"var(--eng)",   name:"Amrita",          yr:"'22", ix:true},
+    {id:"live-in-labs", x:220,  y:UP, c:"var(--field)", name:"Live-in-Labs",    yr:"'20"},
+    {id:"sign-language",x:330,  y:UP, c:"var(--field)", name:"Sign language app"},
+    {id:"hyperverge",   x:260,  y:Y,  c:"var(--eng)",   name:"HyperVerge",      yr:"'22"},
+    {id:"arcadia",      x:440,  y:Y,  c:"var(--eng)",   name:"Arcadia",         yr:"'22", ix:true},
+    {id:"olympian-tek", x:580,  y:Y,  c:"var(--ops)",   name:"Olympian Tek",    yr:"'23"},
+    {id:"thunderbird",  x:700,  y:Y,  c:"var(--strat)", name:"Thunderbird",     ix:true},
+    {id:"shelflife",    x:830,  y:UP, c:"var(--strat)", name:"ShelfLife.ai",    yr:"'25"},
+    {id:"amazon-cx",    x:905,  y:UP, c:"var(--strat)", name:"Amazon CX study"},
+    {id:"c-neutral",    x:980,  y:UP, c:"var(--strat)", name:"C-Neutral",       yr:"'25"},
+    {id:"barrow",       x:1050, y:UP, c:"var(--strat)", name:"Barrow capstone", yr:"'26"},
+    {id:"certificates", x:1040, y:Y,  c:"var(--ops)",   name:"Certificates",    yr:"'26"},
+    {id:"next-stop",    x:1130, y:Y,  c:"var(--ink)",   name:"Next stop",       ix:true, big:true}
+  ];
+  stations.forEach(function(s){
+    var a = el("a",{href:"#"+s.id, "aria-label":s.name});
+    var r = s.big ? 17 : s.ix ? 13 : 9;
+    el("circle",{class:"st-dot", cx:s.x, cy:s.y, r:r, fill:"var(--station)", stroke: s.ix ? "var(--ink)" : s.c, "stroke-width": s.ix ? 5 : 4}, a);
+    var above = s.y === UP;
+    var lx = s.x + 4, ly = above ? s.y - r - 10 : s.y + r + 20;
+    var t = el("text",{class:"st-label" + (s.ix ? " ix-label" : ""), x:lx, y:ly, transform:"rotate("+(above?-35:35)+" "+lx+" "+ly+")"}, a);
+    t.textContent = s.name;
+    if (s.yr){ var ts = el("tspan",{class:"st-year", dx:6}, t); ts.textContent = s.yr; }
+  });
 
-        <article class="panel project">
-          <span class="project-tag">HR · Analytics</span>
-          <h3>HR Dashboard</h3>
-          <p>Designed a dashboard concept to track workforce trends and support hiring or retention decisions.</p>
-          <ul>
-            <li>Organized data into clear categories and metrics.</li>
-            <li>Focused on readability for non-technical users.</li>
-            <li>Can be extended with Power BI or Excel visuals.</li>
-          </ul>
-        </article>
+  /* highlight the stop you jumped to */
+  function land(id){
+    var target = document.getElementById(id);
+    if (!target || !target.classList.contains("stop")) return;
+    document.querySelectorAll(".stop.is-here").forEach(function(n){n.classList.remove("is-here")});
+    target.classList.add("is-here");
+    setTimeout(function(){target.classList.remove("is-here")}, 2400);
+  }
+  svg.addEventListener("click", function(e){
+    var a = e.target.closest("a"); if (!a) return;
+    land(a.getAttribute("href").slice(1));
+  });
 
-        <article class="panel project">
-          <span class="project-tag">Operations · Insight</span>
-          <h3>Attrition Analysis</h3>
-          <p>An analysis project to identify patterns that influence employee turnover and engagement.</p>
-          <ul>
-            <li>Reviewed trends across role, tenure, or department.</li>
-            <li>Turned raw information into clear takeaways.</li>
-            <li>Presented findings in a concise format.</li>
-          </ul>
-        </article>
-
-        <article class="panel project">
-          <span class="project-tag">Coming Soon</span>
-          <h3>Capstone / Internship Case Study</h3>
-          <p>Add one strong future project here with a result, screenshot, or link to your report.</p>
-          <ul>
-            <li>Great place for a project with measurable impact.</li>
-            <li>Include a short description and your personal role.</li>
-            <li>Link it to GitHub, PDF, or a live demo.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section id="experience" class="section">
-      <div class="section-head">
-        <h2>Experience</h2>
-        <p>Write experience as achievements, not just job duties. Include what you helped improve, support, or deliver.</p>
-      </div>
-      <div class="timeline">
-        <article class="panel experience">
-          <div class="meta">HR Intern · Internship</div>
-          <h3>Recruitment and support experience</h3>
-          <p>Supported HR tasks, assisted with coordination, and contributed to a smooth employee or candidate experience.</p>
-        </article>
-
-        <article class="panel experience">
-          <div class="meta">Team Project · College / Training</div>
-          <h3>Collaborative problem solving</h3>
-          <p>Worked with a team to research, organize, and present a structured solution for a real or simulated business problem.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <div class="section-head">
-        <h2>Contact</h2>
-        <p>Make it easy for recruiters to reach you in one click.</p>
-      </div>
-      <div class="contact-wrap">
-        <div class="panel contact-card">
-          <h3>Let's connect</h3>
-          <p>
-            Add your email, LinkedIn, and resume link here. You can also replace this text with a short line about the type of roles you are applying for.
-          </p>
-          <p>
-            Email: <a href="mailto:your.email@example.com">your.email@example.com</a><br />
-            LinkedIn: <a href="https://www.linkedin.com" target="_blank" rel="noreferrer">Your LinkedIn profile</a><br />
-            Resume: <a href="#">Download PDF</a>
-          </p>
-        </div>
-        <div class="panel contact-card">
-          <h3>Quick summary</h3>
-          <p>
-            Aspiring HR and business professional<br />
-            Focused on people, process, and data<br />
-            Open to internships and entry-level opportunities
-          </p>
-          <div class="chips">
-            <span class="chip">LinkedIn Ready</span>
-            <span class="chip">GitHub Pages</span>
-            <span class="chip">Resume Link</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap">© <span id="year"></span> Alekhya Viswanath · Built for hiring impact</div>
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  /* ---------- departure board ---------- */
+  var rows = [
+    ["DESTINATION","FROM","STATUS"],
+    ["PROJECT MANAGEMENT","TEMPE AZ","BOARDING"],
+    ["BUSINESS ANALYTICS","TEMPE AZ","BOARDING"],
+    ["BUSINESS OPERATIONS","TEMPE AZ","BOARDING"]
+  ];
+  var widths = [19, 8, 8];
+  var host = document.getElementById("board-rows");
+  var cells = [];
+  rows.forEach(function(row, ri){
+    var r = document.createElement("div");
+    r.className = "board-row" + (ri === 0 ? " head" : "");
+    row.forEach(function(text, ci){
+      var g = document.createElement("div");
+      g.className = "flaps" + (ci === 1 ? " col-from" : "");
+      var padded = (text + " ".repeat(widths[ci])).slice(0, widths[ci]);
+      for (var i = 0; i < padded.length; i++){
+        var sp = document.createElement("span");
+        sp.textContent = padded[i] === " " ? "\u00a0" : padded[i];
+        g.appendChild(sp);
+        if (ri > 0) cells.push({el:sp, final:padded[i], settle: 6 + ri*5 + ci*4 + i*0.8});
+      }
+      r.appendChild(g);
+    });
+    host.appendChild(r);
+  });
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce){
+    var A = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var frame = 0;
+    var timer = setInterval(function(){
+      frame++;
+      var done = true;
+      cells.forEach(function(c){
+        if (frame < c.settle){ done = false; c.el.textContent = A[(Math.random()*A.length)|0]; }
+        else c.el.textContent = c.final === " " ? "\u00a0" : c.final;
+      });
+      if (done) clearInterval(timer);
+    }, 45);
+  }
+})();
+</script>
 </body>
 </html>
