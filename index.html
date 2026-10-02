@@ -7,25 +7,22 @@
 <meta name="description" content="Alekhya (Alex) Viswanath: from software engineering to project and operations, drawn as a transit map.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;700;800&family=Overpass+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --paper:#FAFAF7; --ink:#1C1F26; --muted:#5E6470; --rule:#DCDED8; --station:#FFFFFF;
   --eng:#1F5FBF; --field:#2F8F4E; --ops:#D98C00; --strat:#8B3A8F;
-  --board:#1B1E24; --flap:#262A31; --flap-ink:#F5C542;
   --max:1120px;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --paper:#13171F; --ink:#E8E9EC; --muted:#A0A6B2; --rule:#2C323D; --station:#13171F;
     --eng:#6C9BEF; --field:#5CC27F; --ops:#F2B33D; --strat:#C77FCB;
-    --board:#0D1016; --flap:#1A1E26;
   }
 }
 :root[data-theme="dark"]{
   --paper:#13171F; --ink:#E8E9EC; --muted:#A0A6B2; --rule:#2C323D; --station:#13171F;
   --eng:#6C9BEF; --field:#5CC27F; --ops:#F2B33D; --strat:#C77FCB;
-  --board:#0D1016; --flap:#1A1E26;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -37,26 +34,35 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--eng);outline-offset
 @media (max-width:600px){.wrap{padding:0 16px}body{font-size:17px}}
 
 /* ---------- hero ---------- */
-.hero{padding:64px 0 24px;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:end}
+.hero{padding-top:64px;padding-bottom:24px;display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:end}
 @media (max-width:900px){.hero{grid-template-columns:1fr;gap:32px;padding-top:40px}}
 .hero h1{font-weight:800;font-size:clamp(2.6rem,6vw,4.4rem);line-height:.98;letter-spacing:-.025em;margin:0 0 20px}
 .lede{font-size:1.15rem;max-width:34em;margin:0;color:var(--ink)}
 .lede + .lede{margin-top:12px;color:var(--muted);font-size:1rem}
 
-/* departure board */
-.board{background:var(--board);border-radius:10px;padding:18px 18px 14px;color:var(--flap-ink);font-family:"Overpass Mono",ui-monospace,monospace;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
-.board-title{font-family:"Overpass",sans-serif;font-weight:700;color:#fff;font-size:.95rem;margin:0 0 12px;display:flex;justify-content:space-between;gap:12px}
-.board-title time{color:#9AA0AA;font-weight:500}
-.board-row{display:flex;gap:10px;margin-bottom:6px}
-.board-row.head .flaps span{background:transparent;color:#9AA0AA}
-.flaps{display:flex;gap:2px}
-.flaps span{display:inline-block;width:1.05em;text-align:center;background:var(--flap);border-radius:2px;font-weight:700;font-size:clamp(.62rem,1.35vw,.82rem);line-height:1.7;position:relative}
-.flaps span::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(0,0,0,.55)}
-.board-row.head .flaps span::after{display:none}
-@media (max-width:560px){.col-from{display:none}}
+/* ticket */
+.ticket{display:grid;grid-template-columns:1fr 132px;background:var(--station);border:2px solid var(--ink);border-radius:14px;overflow:hidden;position:relative}
+.ticket-main{padding:20px 22px 18px}
+.route-strip{display:flex;align-items:center;margin:0 0 18px}
+.route-strip i{flex:1;height:8px;background:var(--c)}
+.route-strip i:first-child{border-radius:4px 0 0 4px}
+.route-strip b{width:14px;height:14px;border-radius:50%;background:var(--station);border:3px solid var(--ink);flex:none;margin:0 -2px;position:relative;z-index:1}
+.leg{display:grid;grid-template-columns:44px 1fr;gap:4px 12px;margin:0 0 12px}
+.leg:last-child{margin-bottom:0}
+.leg dt{font-size:.85rem;color:var(--muted);padding-top:3px}
+.leg dd{margin:0;font-weight:700;line-height:1.35}
+.leg dd small{display:block;font-weight:400;color:var(--muted);font-size:.9rem;margin-top:2px}
+.leg.to dd{font-size:1.15rem;font-weight:800}
+.ticket-stub{border-left:2px dashed var(--rule);padding:20px 16px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;background:color-mix(in srgb,var(--ops) 10%,var(--station))}
+.ticket-stub p{margin:0;font-size:.85rem;color:var(--muted);line-height:1.35}
+.ticket-stub strong{display:block;color:var(--ink);font-size:1rem}
+.ticket-stub a{font-weight:700;font-size:.95rem}
+.ticket::before,.ticket::after{content:"";position:absolute;right:122px;width:20px;height:20px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+.ticket::before{top:-12px}.ticket::after{bottom:-12px}
+@media (max-width:480px){.ticket{grid-template-columns:1fr}.ticket-stub{border-left:0;border-top:2px dashed var(--rule);flex-direction:row;align-items:center}.ticket::before,.ticket::after{display:none}}
 
 /* ---------- map ---------- */
-.map-section{padding:24px 0 8px}
+.map-section{padding-top:24px;padding-bottom:8px}
 .map-frame{overflow-x:auto;-webkit-overflow-scrolling:touch;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:8px 0}
 .map-frame svg{display:block;width:100%;min-width:880px;height:auto}
 .map-hint{display:none;font-size:.85rem;color:var(--muted);margin:8px 0 0}
@@ -75,7 +81,7 @@ svg a:focus-visible .st-label,svg a:hover .st-label{text-decoration:underline}
 /* ---------- route ---------- */
 section h2{font-weight:800;font-size:clamp(1.7rem,3.4vw,2.3rem);letter-spacing:-.015em;line-height:1.1;margin:0 0 8px}
 .section-intro{color:var(--muted);margin:0 0 36px;max-width:36em}
-.route{padding:72px 0 24px}
+.route{padding-top:72px;padding-bottom:24px}
 .stops{list-style:none;margin:0;padding:0}
 .stop{display:grid;grid-template-columns:56px 1fr;position:relative}
 .stop::before{content:"";position:absolute;left:22px;top:0;bottom:0;width:10px;background:var(--line)}
@@ -94,6 +100,16 @@ section h2{font-weight:800;font-size:clamp(1.7rem,3.4vw,2.3rem);letter-spacing:-
 :root[data-theme="dark"] .pill{color:#13171F}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .pill{color:#13171F}}
 
+
+/* photos */
+.photo{margin:16px 0 4px;max-width:36em}
+.photo img{display:block;width:100%;height:auto;border-radius:10px;border-bottom:6px solid var(--line);background:var(--rule)}
+.photo.portrait{max-width:300px}
+.photo figcaption{font-size:.88rem;color:var(--muted);margin-top:8px}
+.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:40em;margin:16px 0 4px}
+.photo-pair .photo{margin:0}
+@media (max-width:560px){.photo-pair{grid-template-columns:1fr}}
+
 /* transfer sign */
 .transfer{display:grid;grid-template-columns:56px 1fr;position:relative}
 .transfer::before{content:"";position:absolute;left:22px;top:0;height:50%;width:10px;background:var(--from)}
@@ -104,7 +120,7 @@ section h2{font-weight:800;font-size:clamp(1.7rem,3.4vw,2.3rem);letter-spacing:-
 .sign p{margin:0;color:var(--muted)}
 
 /* ---------- toolkit ---------- */
-.toolkit{padding:56px 0 24px}
+.toolkit{padding-top:56px;padding-bottom:24px}
 .kits{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
 @media (max-width:900px){.kits{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:520px){.kits{grid-template-columns:1fr}}
@@ -114,7 +130,7 @@ section h2{font-weight:800;font-size:clamp(1.7rem,3.4vw,2.3rem);letter-spacing:-
 .kit li{padding:3px 0}
 
 /* ---------- terminus ---------- */
-.terminus{padding:72px 0 40px}
+.terminus{padding-top:72px;padding-bottom:40px}
 .terminus-card{border:3px solid var(--ink);border-radius:14px;padding:32px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
 @media (max-width:640px){.terminus-card{grid-template-columns:1fr;padding:24px}}
 .roundel{width:84px;height:84px;border-radius:50%;border:12px solid var(--ink);background:var(--station);position:relative}
@@ -126,7 +142,7 @@ section h2{font-weight:800;font-size:clamp(1.7rem,3.4vw,2.3rem);letter-spacing:-
 .btn.primary{background:var(--ink);color:var(--paper)}
 .btn:hover{background:color-mix(in srgb,var(--ink) 10%,transparent)}
 .btn.primary:hover{background:color-mix(in srgb,var(--ink) 85%,var(--paper))}
-footer{padding:16px 0 48px;color:var(--muted);font-size:.85rem}
+footer{padding-top:16px;padding-bottom:48px;color:var(--muted);font-size:.85rem}
 </style>
 </head>
 <body>
@@ -137,9 +153,19 @@ footer{padding:16px 0 48px;color:var(--muted);font-size:.85rem}
     <p class="lede">Hi, I'm Alex. I started out writing code, moved into client integrations, then ran projects and operations, and then crossed from Chennai to Arizona to study global business. Each move added a line to the map.</p>
     <p class="lede">This is the route so far, with the transfers marked. Tap any station to read about it.</p>
   </div>
-  <div class="board" aria-label="Departures: project management, business analytics and business operations roles, from Tempe, Arizona. Now boarding.">
-    <p class="board-title"><span>Departures</span><time datetime="2026-10">Oct 2026</time></p>
-    <div id="board-rows" aria-hidden="true"></div>
+  <div class="ticket" aria-label="Career ticket">
+    <div class="ticket-main">
+      <div class="route-strip" aria-hidden="true"><i style="--c:var(--eng)"></i><b></b><i style="--c:var(--ops)"></i><b></b><i style="--c:var(--strat)"></i><b></b><i style="--c:var(--ink)"></i></div>
+      <dl>
+        <div class="leg"><dt>From</dt><dd>Software engineering<small>B.Tech in CS, integrations and extraction work</small></dd></div>
+        <div class="leg"><dt>Via</dt><dd>Project &amp; operations, then global management<small>Ran an RFID rollout, then an MS at Thunderbird</small></dd></div>
+        <div class="leg to"><dt>To</dt><dd>Project management, business analytics and business operations</dd></div>
+      </dl>
+    </div>
+    <div class="ticket-stub">
+      <p><strong>Tempe, AZ</strong>Open to roles now</p>
+      <a href="#next-stop">Get in touch</a>
+    </div>
   </div>
 </header>
 
@@ -250,6 +276,7 @@ footer{padding:16px 0 48px;color:var(--muted);font-size:.85rem}
         <p class="role">Master of Global Management (Global Business)</p>
         <p class="where">Arizona State University, Phoenix. Graduated May 2026</p>
         <p>GPA 3.67, STEM-designated. Coursework in digital transformation, organizational consulting, and marketing and data analytics. The next four stops are the projects I did here.</p>
+        <figure class="photo"><img src="images/thunderbird-commencement.jpg" width="1400" height="933" loading="lazy" alt="Alex shaking hands on stage at commencement, with international flags behind"><figcaption>Commencement, May 2026.</figcaption></figure>
       </div>
     </li>
 
@@ -260,6 +287,7 @@ footer{padding:16px 0 48px;color:var(--muted);font-size:.85rem}
         <p class="role">Project Lead</p>
         <p class="where">Phoenix. Mar to May 2025</p>
         <p>An AI-powered SaaS platform to cut food waste, for businesses and households in the US and India. I came up with the idea, led a 4-person team through the feasibility analysis (modeling 20 to 30% cost savings, checked against primary research in both markets) and built the pitch. It took 1st place out of 10 teams in our Global Entrepreneurship &amp; Sustainability class, and later won a hackathon too.</p>
+        <figure class="photo portrait"><img src="images/thunderbird-class-team.jpg" width="1050" height="1400" loading="lazy" alt="Alex with classmates and faculty in a Thunderbird classroom"><figcaption>With classmates after final presentations at Thunderbird.</figcaption></figure>
       </div>
     </li>
 
@@ -284,6 +312,7 @@ footer{padding:16px 0 48px;color:var(--muted);font-size:.85rem}
           <li>Scoped and designed an emissions tracking MVP, estimated to cut clients' manual reporting by 40%.</li>
           <li>Took the prototype through 2 rounds of feedback, from requirements to final client handoff.</li>
         </ul>
+        <div class="photo-pair"><figure class="photo"><img src="images/cneutral-bogota.jpg" width="1400" height="1050" loading="lazy" alt="Alex with the C-Neutral team and fellow consultants in a Bogotá courtyard"><figcaption>With the C-Neutral team in Bogotá.</figcaption></figure><figure class="photo"><img src="images/cneutral-team.jpg" width="1400" height="1050" loading="lazy" alt="Alex and the consulting team posing playfully in the courtyard"><figcaption>Our consulting team, between client sessions.</figcaption></figure></div>
       </div>
     </li>
 
@@ -294,6 +323,7 @@ footer{padding:16px 0 48px;color:var(--muted);font-size:.85rem}
         <p class="role">Corporate Partners capstone</p>
         <p class="where">Thunderbird, final semester, 2026</p>
         <p>A 7-person team researching 8 countries for Barrow. I covered Kenya and Zambia and was the team's production and documentation lead, turning everyone's research into one finished deliverable.</p>
+        <figure class="photo"><img src="images/barrow-capstone.jpg" width="1400" height="1050" loading="lazy" alt="Alex with the capstone team in front of the Barrow presentation screen"><figcaption>Presenting our country research to Barrow Neurological Institute.</figcaption></figure>
       </div>
     </li>
 
@@ -419,47 +449,6 @@ footer{padding:16px 0 48px;color:var(--muted);font-size:.85rem}
     land(a.getAttribute("href").slice(1));
   });
 
-  /* ---------- departure board ---------- */
-  var rows = [
-    ["DESTINATION","FROM","STATUS"],
-    ["PROJECT MANAGEMENT","TEMPE AZ","BOARDING"],
-    ["BUSINESS ANALYTICS","TEMPE AZ","BOARDING"],
-    ["BUSINESS OPERATIONS","TEMPE AZ","BOARDING"]
-  ];
-  var widths = [19, 8, 8];
-  var host = document.getElementById("board-rows");
-  var cells = [];
-  rows.forEach(function(row, ri){
-    var r = document.createElement("div");
-    r.className = "board-row" + (ri === 0 ? " head" : "");
-    row.forEach(function(text, ci){
-      var g = document.createElement("div");
-      g.className = "flaps" + (ci === 1 ? " col-from" : "");
-      var padded = (text + " ".repeat(widths[ci])).slice(0, widths[ci]);
-      for (var i = 0; i < padded.length; i++){
-        var sp = document.createElement("span");
-        sp.textContent = padded[i] === " " ? "\u00a0" : padded[i];
-        g.appendChild(sp);
-        if (ri > 0) cells.push({el:sp, final:padded[i], settle: 6 + ri*5 + ci*4 + i*0.8});
-      }
-      r.appendChild(g);
-    });
-    host.appendChild(r);
-  });
-  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!reduce){
-    var A = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var frame = 0;
-    var timer = setInterval(function(){
-      frame++;
-      var done = true;
-      cells.forEach(function(c){
-        if (frame < c.settle){ done = false; c.el.textContent = A[(Math.random()*A.length)|0]; }
-        else c.el.textContent = c.final === " " ? "\u00a0" : c.final;
-      });
-      if (done) clearInterval(timer);
-    }, 45);
-  }
 })();
 </script>
 </body>
